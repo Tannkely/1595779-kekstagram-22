@@ -1,19 +1,21 @@
 import './data.js';
 import generateObjectsArray from './data.js';
+import openBigPicture from './big-picture.js';
 
 const usersPictures = document.querySelector('.pictures');
 const pictureTemplateFragmet = document.querySelector('#picture').content.querySelector('.picture');
-const usersComments = pictureTemplateFragmet.querySelector('.picture__comments');
-const usersLikes = pictureTemplateFragmet.querySelector('.picture__likes');
+const createUsersImages = function ({url, comments, likes, description}) {
+  const usersImage = pictureTemplateFragmet.cloneNode(true);
+  usersImage.querySelector('.picture__img').src = url;
+  usersImage.querySelector('.picture__comments').textContent = comments.length;
+  usersImage.querySelector('.picture__likes').textContent = likes;
+  usersImage.addEventListener('click', () => {
 
-const createUsersImages = function ({url, comments, likes}) {
-  const usersImages = pictureTemplateFragmet.cloneNode(true);
-  usersImages.querySelector('.picture__img').src = url;
-  usersComments.textContent = comments.length;
-  usersLikes.textContent = likes;
-
-  return usersImages;
+    openBigPicture({url, comments, likes, description});
+  });
+  return usersImage;
 };
+
 
 const renderUsersImages = function () {
   const fragment = document.createDocumentFragment();
